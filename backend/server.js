@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000
 const corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200, // For legacy browser support
-  methods: 'GET, PUT',
+  methods: 'GET, POST, PUT, DELETE, OPTIONS',
 }
 
 env.config()
