@@ -22,11 +22,12 @@ const userSchema = new Schema(
     phone: {
       type: String,
       default: '',
+      minlength: 0
     },
     isAdmin: {
       type: Boolean,
-      required: true,
       default: false,
+      required: true,
     },
   },
   { timestamps: true }
