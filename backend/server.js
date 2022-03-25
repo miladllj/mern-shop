@@ -25,7 +25,9 @@ const app = express()
 
 app.use(express.json())
 app.use(cors(corsOptions))
-app.use(morgan('tiny'))
+if (process.env.NODE_ENV === 'Development') {
+  app.use(morgan('dev'))
+}
 
 app.get('/', (req, res, next) => {
   res.send('API is running ...')
