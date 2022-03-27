@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = () => {
   const [name, setName] = useState('')
@@ -34,7 +35,8 @@ const ProfileScreen = () => {
     if (!userInfo) {
       navigate('/login')
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
         dispatch(listMyOrders())
       } else {
@@ -43,7 +45,7 @@ const ProfileScreen = () => {
         setPhone(user.phone)
       }
     }
-  }, [dispatch, navigate, userInfo, user])
+  }, [dispatch, navigate, userInfo, user, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -161,7 +163,9 @@ const ProfileScreen = () => {
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant="light">Details</Button>
+                      <Button className="btn-sm" variant="light">
+                        Details
+                      </Button>
                     </LinkContainer>
                   </td>
                 </tr>
@@ -169,7 +173,7 @@ const ProfileScreen = () => {
             </tbody>
           </Table>
         )}
-      </Col>  
+      </Col>
     </Row>
   )
 }
