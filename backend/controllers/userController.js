@@ -54,7 +54,7 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
     if (req.body.password) {
       user.password = req.body.password
     }
-    user.phone = req.body.phone || user.phone
+    user.phone = req.body.phone || ''
 
     const updatedUser = await user.save()
 
@@ -148,7 +148,7 @@ const updateUser = asyncHandler(async (req, res, next) => {
   if (user) {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
-    user.isAdmin = req.body.isAdmin || user.isAdmin
+    user.isAdmin = req.body.isAdmin || false
     // if (req.body.password) {
     //   user.password = req.body.password
     // }
