@@ -7,6 +7,7 @@ import Product from '../models/productModel.js'
 const getProducts = asyncHandler(async (req, res) => {
   const pageSize = 10
   const page = Number(req.query.pageNumber) || 1
+
   const keyword = req.query.keyword
     ? {
         name: {
@@ -17,10 +18,10 @@ const getProducts = asyncHandler(async (req, res) => {
     : {}
 
   const count = await Product.count({ ...keyword })
-
   const products = await Product.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
+
   res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
@@ -100,7 +101,9 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body
+
   const product = await Product.findById(req.params.id)
+  
   if (product) {
     const alreadyReviewed = product.reviews.find(
       (r) => r.user.toString() === req.user._id.toString()
@@ -119,6 +122,7 @@ const createProductReview = asyncHandler(async (req, res) => {
     }
 
     product.reviews.push(review)
+
     product.numReviews = product.reviews.length
 
     product.rating =
@@ -138,6 +142,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 // @access  Public
 const getTopProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({}).sort({ rating: -1 }).limit(3)
+  
   res.json(products)
 })
 
@@ -148,5 +153,5 @@ export {
   createProduct,
   updateProduct,
   createProductReview,
-  getTopProducts
+  getTopProducts,
 }
