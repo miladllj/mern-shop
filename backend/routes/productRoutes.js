@@ -13,9 +13,9 @@ import { protect, admin } from '../middleware/authMiddleware.js'
 
 router.get('/', getProducts)
 
-router.get('/:id', getProductById)
-
 router.get('/top', getTopProducts)
+
+router.get('/:id', getProductById)
 
 router.post('/', protect, admin, createProduct)
 
