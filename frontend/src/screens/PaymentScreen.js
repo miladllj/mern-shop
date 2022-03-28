@@ -32,7 +32,6 @@ const PaymentScreen = () => {
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as="legend">Select Method</Form.Label>
-
           <Col>
             <Form.Check
               type="radio"
@@ -43,7 +42,6 @@ const PaymentScreen = () => {
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
-
             {/* <Form.Check
               type="radio"
               label="Stripe"

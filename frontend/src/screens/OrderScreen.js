@@ -5,6 +5,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
+import Loader from '../components/Loader'
 import {
   getOrderDetails,
   payOrder,
@@ -14,7 +15,6 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants'
-import Loader from '../components/Loader'
 
 const OrderScreen = () => {
   const dispatch = useDispatch()
@@ -36,6 +36,7 @@ const OrderScreen = () => {
   const { userInfo } = userLogin
 
   if (!loading) {
+    //   Calculate prices
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2)
     }
@@ -49,6 +50,7 @@ const OrderScreen = () => {
     if (!userInfo) {
       navigate('/login')
     }
+
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(
         'http://localhost:5000/api/config/paypal'
@@ -63,7 +65,7 @@ const OrderScreen = () => {
       document.body.appendChild(script)
     }
 
-    if (!order || successPay || successDeliver) {
+    if (!order || successPay || successDeliver || order._id !== id) {
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(id))
@@ -101,7 +103,7 @@ const OrderScreen = () => {
                 <strong>Name: </strong> {order.user.name}
               </p>
               <p>
-                Email:{' '}
+                <strong>Email: </strong>{' '}
                 <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               </p>
               <p>
@@ -112,7 +114,7 @@ const OrderScreen = () => {
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered on {order.DeliveredAt}
+                  Delivered on {order.deliveredAt}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>

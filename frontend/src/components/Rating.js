@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Rating = ({ value, text, color }) => {
   return (
@@ -8,10 +8,10 @@ const Rating = ({ value, text, color }) => {
           style={{ color }}
           className={
             value >= 1
-              ? "fa-solid fa-star"
+              ? 'fa-solid fa-star'
               : value >= 0.5
-              ? "fa-solid fa-star-half-stroke"
-              : "far fa-star"
+              ? 'fa-solid fa-star-half-stroke'
+              : 'far fa-star'
           }
         ></i>
       </span>
@@ -20,10 +20,10 @@ const Rating = ({ value, text, color }) => {
           style={{ color }}
           className={
             value >= 2
-              ? "fa-solid fa-star"
+              ? 'fa-solid fa-star'
               : value >= 1.5
-              ? "fa-solid fa-star-half-stroke"
-              : "far fa-star"
+              ? 'fa-solid fa-star-half-stroke'
+              : 'far fa-star'
           }
         ></i>
       </span>
@@ -32,10 +32,10 @@ const Rating = ({ value, text, color }) => {
           style={{ color }}
           className={
             value >= 3
-              ? "fa-solid fa-star"
+              ? 'fa-solid fa-star'
               : value >= 2.5
-              ? "fa-solid fa-star-half-stroke"
-              : "far fa-star"
+              ? 'fa-solid fa-star-half-stroke'
+              : 'far fa-star'
           }
         ></i>
       </span>
@@ -44,10 +44,10 @@ const Rating = ({ value, text, color }) => {
           style={{ color }}
           className={
             value >= 4
-              ? "fa-solid fa-star"
+              ? 'fa-solid fa-star'
               : value >= 3.5
-              ? "fa-solid fa-star-half-stroke"
-              : "far fa-star"
+              ? 'fa-solid fa-star-half-stroke'
+              : 'far fa-star'
           }
         ></i>
       </span>
@@ -56,20 +56,20 @@ const Rating = ({ value, text, color }) => {
           style={{ color }}
           className={
             value >= 5
-              ? "fa-solid fa-star"
+              ? 'fa-solid fa-star'
               : value >= 4.5
-              ? "fa-solid fa-star-half-stroke"
-              : "far fa-star"
+              ? 'fa-solid fa-star-half-stroke'
+              : 'far fa-star'
           }
         ></i>
       </span>
       <span>{text && text}</span>
     </div>
-  );
-};
+  )
+}
 
 Rating.defaultProps = {
-  color: "#f9bc00",
-};
+  color: '#f9bc00',
+}
 
-export default Rating;
+export default Rating
