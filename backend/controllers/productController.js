@@ -1,5 +1,9 @@
+import path from 'path'
+import fs from 'fs'
 import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
+
+const __dirname = path.resolve()
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -44,6 +48,7 @@ const getProductById = asyncHandler(async (req, res) => {
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
   if (product) {
+    clearImage(product.image)
     await product.remove()
     res.json({ message: 'Product removed' })
   } else {
@@ -80,6 +85,11 @@ const updateProduct = asyncHandler(async (req, res) => {
     req.body
   const product = await Product.findById(req.params.id)
   if (product) {
+    
+    if (image !== product.image) {
+      clearImage(product.image)
+    }
+
     product.name = name
     product.price = price
     product.description = description
@@ -145,6 +155,11 @@ const getTopProducts = asyncHandler(async (req, res) => {
   
   res.json(products)
 })
+
+const clearImage = (filePath) => {
+  filePath = path.join(__dirname, filePath)
+  fs.unlink(filePath, err => err ? console.log(err) : console.log(filePath + ' unlinked'))
+}
 
 export {
   getProducts,
