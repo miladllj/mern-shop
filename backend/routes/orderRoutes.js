@@ -14,9 +14,9 @@ const router = express.Router()
 
 router.get('/', protect, admin, getOrders)
 
-router.get('/:id', protect, getOrderById)
-
 router.get('/myorders', protect, getMyOrders)
+
+router.get('/:id', protect, getOrderById)
 
 router.post('/', protect, addOrderItems)
 
